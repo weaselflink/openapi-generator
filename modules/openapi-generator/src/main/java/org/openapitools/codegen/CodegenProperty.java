@@ -17,6 +17,8 @@
 
 package org.openapitools.codegen;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.*;
 
 public class CodegenProperty implements Cloneable {
@@ -252,6 +254,10 @@ public class CodegenProperty implements Cloneable {
 
     public void setPattern(String pattern) {
         this.pattern = pattern;
+    }
+
+    public boolean isExampleEmpty() {
+        return StringUtils.isNotEmpty(example);
     }
 
     public String getExample() {

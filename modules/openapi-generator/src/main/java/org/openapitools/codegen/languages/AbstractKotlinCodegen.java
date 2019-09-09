@@ -54,7 +54,7 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
     protected String modelDocPath = "docs/";
     protected boolean parcelizeModels = false;
 
-    protected CodegenConstants.ENUM_PROPERTY_NAMING_TYPE enumPropertyNaming = CodegenConstants.ENUM_PROPERTY_NAMING_TYPE.camelCase;
+    protected CodegenConstants.ENUM_PROPERTY_NAMING_TYPE enumPropertyNaming = CodegenConstants.ENUM_PROPERTY_NAMING_TYPE.original;
     protected SERIALIZATION_LIBRARY_TYPE serializationLibrary = SERIALIZATION_LIBRARY_TYPE.moshi;
 
     public AbstractKotlinCodegen() {
@@ -878,12 +878,20 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
             if (p.getDefault() != null) {
                 return "URI.create('" + p.getDefault() + "')";
             }
+        } else if (isEnumSchema(p)) {
+            if (p.getDefault() != null) {
+                return p.getDefault().toString();
+            }
         } else if (ModelUtils.isStringSchema(p)) {
             if (p.getDefault() != null) {
-                return "'" + p.getDefault() + "'";
+                return "\"" + p.getDefault().toString() + "\"";
             }
         }
 
         return null;
+    }
+
+    private boolean isEnumSchema(Schema schema) {
+        return schema != null && schema.getEnum() != null && !schema.getEnum().isEmpty();
     }
 }

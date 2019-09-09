@@ -69,10 +69,10 @@ public class KotlinSpringServerCodegen extends AbstractKotlinCodegen
     private String serverPort = "8080";
     private String title = "OpenAPI Kotlin Spring";
     private String resourceFolder = "src/main/resources";
-    private boolean useBeanValidation = true;
+    private boolean useBeanValidation = false;
     private boolean exceptionHandler = true;
     private boolean gradleBuildFile = true;
-    private boolean swaggerAnnotations = false;
+    private boolean swaggerAnnotations = true;
     private boolean serviceInterface = false;
     private boolean serviceImplementation = false;
     private boolean reactive = false;

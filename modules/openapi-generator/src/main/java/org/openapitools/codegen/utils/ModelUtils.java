@@ -797,6 +797,8 @@ public class ModelUtils {
             } else if (ref.getEnum() != null && !ref.getEnum().isEmpty()) {
                 // top-level enum class
                 return schema;
+            } else if (ref.equals(schema)) {
+                throw new RuntimeException("Recursive definition: " + ref.get$ref());
             } else if (isArraySchema(ref)) {
                 if (generateAliasAsModel) {
                     return schema; // generate a model extending array

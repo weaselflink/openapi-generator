@@ -521,6 +521,10 @@ public class CodegenModel {
         this.additionalPropertiesType = additionalPropertiesType;
     }
 
+    public boolean isNeedsBody() {
+        return discriminator != null || hasEnums;
+    }
+
     /**
      * Remove duplicated properties in all variable list and update "hasMore"
      */
