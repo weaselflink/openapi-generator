@@ -418,10 +418,6 @@ public class KotlinSpringServerCodegen extends AbstractKotlinCodegen
     public void postProcessModelProperty(CodegenModel model, CodegenProperty property) {
         super.postProcessModelProperty(model, property);
 
-        if ("null".equals(property.example)) {
-            property.example = null;
-        }
-
         //Add imports for Jackson
         if (!Boolean.TRUE.equals(model.isEnum)) {
             model.imports.add("JsonProperty");

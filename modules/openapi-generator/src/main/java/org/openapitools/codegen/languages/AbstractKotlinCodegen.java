@@ -902,6 +902,15 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
         return tag;
     }
 
+    @Override
+    public String toExampleValue(Schema p) {
+        if (p.getExample() != null) {
+            return p.getExample().toString();
+        } else {
+            return null;
+        }
+    }
+
     private boolean isEnumSchema(Schema schema) {
         return schema != null && schema.getEnum() != null && !schema.getEnum().isEmpty();
     }

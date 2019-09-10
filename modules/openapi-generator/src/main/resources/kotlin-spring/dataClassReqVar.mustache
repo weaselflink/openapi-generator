@@ -1,5 +1,5 @@
 {{#useBeanValidation}}{{#required}}
     {{^isReadOnly}}@get:NotNull{{/isReadOnly}} {{/required}}{{>beanValidationModel}}{{/useBeanValidation}}{{#swaggerAnnotations}}
-    @ApiModelProperty({{^exampleEmpty}}example = "{{{example}}}", {{/exampleEmpty}}{{#required}}required = {{required}}, {{/required}}{{#isReadOnly}}readOnly = {{{isReadOnly}}}, {{/isReadOnly}}value = "{{{description}}}"){{/swaggerAnnotations}}
+    @ApiModelProperty({{#example}}example = "{{{example}}}", {{/example}}{{#required}}required = {{required}}, {{/required}}{{#isReadOnly}}readOnly = {{{isReadOnly}}}, {{/isReadOnly}}value = "{{{description}}}"){{/swaggerAnnotations}}
     @JsonProperty("{{{baseName}}}"){{#isInherited}} override{{/isInherited}}
     val {{{name}}}: {{#isEnum}}{{classname}}.{{nameInCamelCase}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{/isEnum}}{{#isReadOnly}}? = {{#defaultValue}}{{defaultValue}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/isReadOnly}}

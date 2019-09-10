@@ -26,7 +26,8 @@
      */
     enum class {{nameInCamelCase}}(val value: {{{dataType}}}) {
     {{#allowableValues}}{{#enumVars}}
-        @JsonProperty({{{value}}}) {{{name}}}({{{value}}}){{^-last}},{{/-last}}{{#-last}};{{/-last}}
+        @JsonProperty({{{value}}})
+        {{{name}}}({{{value}}}){{^-last}},{{/-last}}{{#-last}};{{/-last}}
     {{/enumVars}}{{/allowableValues}}
     }
 {{/isEnum}}{{/vars}}{{/hasEnums}}{{#needsBody}}
