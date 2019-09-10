@@ -891,6 +891,17 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
         return null;
     }
 
+    @Override
+    public String sanitizeTag(String tag) {
+        tag = underscore(sanitizeName(tag));
+
+        // tag starts with numbers
+        if (tag.matches("^\\d.*")) {
+            tag = "Class" + tag;
+        }
+        return tag;
+    }
+
     private boolean isEnumSchema(Schema schema) {
         return schema != null && schema.getEnum() != null && !schema.getEnum().isEmpty();
     }
