@@ -77,7 +77,11 @@ class {{classname}}Controller({{#serviceInterface}}@Autowired(required = true) v
         produces = [{{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}}], {{/hasProduces}}{{#hasConsumes}}
         consumes = [{{#consumes}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/consumes}}],{{/hasConsumes}}{{/singleContentTypes}}
         method = [RequestMethod.{{httpMethod}}])
-    {{#reactive}}{{^isListContainer}}suspend {{/isListContainer}}{{/reactive}}fun {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}},{{/hasMore}}{{/allParams}}): ResponseEntity<{{>returnTypes}}> {
+    {{#reactive}}{{^isListContainer}}suspend {{/isListContainer}}{{/reactive}}fun {{operationId}}({{#hasParams}}
+        {{/hasParams}}{{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}},
+
+        {{/hasMore}}{{/allParams}}{{#hasParams}}
+    {{/hasParams}}): ResponseEntity<{{>returnTypes}}> {
         return {{>returnValue}}
     }
 {{/operation}}
