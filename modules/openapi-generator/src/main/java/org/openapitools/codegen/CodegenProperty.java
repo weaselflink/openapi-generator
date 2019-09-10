@@ -257,7 +257,7 @@ public class CodegenProperty implements Cloneable {
     }
 
     public boolean isExampleEmpty() {
-        return StringUtils.isNotEmpty(example);
+        return StringUtils.isEmpty(example);
     }
 
     public String getExample() {
