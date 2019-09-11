@@ -1,11 +1,7 @@
-/**
- * {{{description}}}
-{{#vars}}
- * @param {{name}} {{{description}}}
-{{/vars}}
- */{{#discriminator}}
-{{>typeInfoAnnotation}}{{/discriminator}}
-{{#discriminator}}interface {{classname}}{{/discriminator}}{{^discriminator}}data class {{classname}}(
+{{#swaggerAnnotations}}{{#description}}@ApiModel(description = "{{{description}}}")
+{{/description}}{{/swaggerAnnotations}}{{#discriminator}}
+{{>typeInfoAnnotation}}
+interface {{classname}}{{/discriminator}}{{^discriminator}}data class {{classname}}(
 {{#requiredVars}}
 {{>dataClassReqVar}}{{^-last}},
 {{/-last}}{{/requiredVars}}{{#hasRequired}}{{#hasOptional}},
@@ -19,16 +15,12 @@
     {{#optionalVars}}
         {{>interfaceOptVar}}
     {{/optionalVars}}
-{{/discriminator}}{{#hasEnums}}{{#vars}}{{#isEnum}}
-    /**
-     * {{{description}}}
-     * Values: {{#allowableValues}}{{#enumVars}}{{&name}}{{^-last}},{{/-last}}{{/enumVars}}{{/allowableValues}}
-     */
+{{/discriminator}}{{#hasEnums}}{{#vars}}{{#isEnum}}{{#description}}
+    @ApiModel(description = "{{{description}}}"){{/description}}
     enum class {{nameInCamelCase}}(val value: {{{dataType}}}) {
     {{#allowableValues}}{{#enumVars}}
         @JsonProperty({{{value}}})
-        {{{name}}}({{{value}}}){{^-last}},{{/-last}}{{#-last}};{{/-last}}
-    {{/enumVars}}{{/allowableValues}}
-    }
-{{/isEnum}}{{/vars}}{{/hasEnums}}{{#needsBody}}
+        {{{name}}}({{{value}}}){{^-last}},
+{{/-last}}{{#-last}};{{/-last}}{{/enumVars}}{{/allowableValues}}
+    }{{/isEnum}}{{/vars}}{{/hasEnums}}{{#needsBody}}
 }{{/needsBody}}
