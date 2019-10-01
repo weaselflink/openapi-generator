@@ -19,8 +19,8 @@ interface {{classname}}{{/discriminator}}{{^discriminator}}data class {{classnam
     @ApiModel(description = "{{{description}}}"){{/description}}
     enum class {{nameInCamelCase}}(val value: {{{dataType}}}) {
     {{#allowableValues}}{{#enumVars}}
-        @JsonProperty({{{value}}})
-        {{{name}}}({{{value}}}){{^-last}},
+        @JsonProperty("{{{value}}}")
+        {{{name}}}("{{{value}}}"){{^-last}},
 {{/-last}}{{#-last}};{{/-last}}{{/enumVars}}{{/allowableValues}}
     }{{/isEnum}}{{/vars}}{{/hasEnums}}{{#needsBody}}
 }{{/needsBody}}

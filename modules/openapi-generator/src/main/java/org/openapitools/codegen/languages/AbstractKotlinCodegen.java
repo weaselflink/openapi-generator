@@ -734,8 +734,7 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
     @Override
     protected boolean needToImport(String type) {
         // provides extra protection against improperly trying to import language primitives and java types
-        boolean imports = !type.startsWith("kotlin.") && !type.startsWith("java.") && !defaultIncludes.contains(type) && !languageSpecificPrimitives.contains(type);
-        return imports;
+        return !type.startsWith("kotlin.") && !type.startsWith("java.") && !defaultIncludes.contains(type) && !languageSpecificPrimitives.contains(type);
     }
 
     @Override
@@ -751,8 +750,13 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
         } else if ("kotlin.Float".equals(datatype)) {
             return value + "f";
         } else {
-            return "\"" + escapeText(value) + "\"";
+            return escapeText(value);
         }
+    }
+
+    @Override
+    public String toEnumDefaultValue(String value, String datatype) {
+        return value;
     }
 
     @Override
