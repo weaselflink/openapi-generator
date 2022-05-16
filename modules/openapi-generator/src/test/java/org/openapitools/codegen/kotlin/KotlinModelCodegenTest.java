@@ -110,4 +110,46 @@ public class KotlinModelCodegenTest {
         assertFileContains(Paths.get(outputPath + "/src/main/kotlin/models/UniqueArray.kt"),
                 "var array: kotlin.collections.MutableSet<kotlin.String>");
     }
+
+    @Test(dataProvider = "generators")
+    public void arrayOfNullableItems(AbstractKotlinCodegen codegen) throws IOException {
+        String outputPath = generateModels(codegen, "src/test/resources/3_0/schema-with-array-of-nullable.yaml", false);
+
+        assertFileContains(Paths.get(outputPath + "/src/main/kotlin/models/ArrayHolderObject.kt"),
+            codegen instanceof KotlinVertxServerCodegen
+                ? "val _arrayOfNullable: kotlin.Array<kotlin.String?>?,"
+                : "val arrayOfNullable: kotlin.collections.List<kotlin.String?>,"
+        );
+    }
+
+    @Test(dataProvider = "generators")
+    public void mutableArrayOfNullableItems(AbstractKotlinCodegen codegen) throws IOException {
+        String outputPath = generateModels(codegen, "src/test/resources/3_0/schema-with-array-of-nullable.yaml", true);
+
+        assertFileContains(Paths.get(outputPath + "/src/main/kotlin/models/ArrayHolderObject.kt"),
+            codegen instanceof KotlinVertxServerCodegen
+                ? "var _arrayOfNullable: kotlin.Array<kotlin.String?>?,"
+                : "var arrayOfNullable: kotlin.collections.MutableList<kotlin.String?>,"
+        );
+    }
+
+    @Test(dataProvider = "generators")
+    public void nullableRequiredVal(AbstractKotlinCodegen codegen) throws IOException {
+        String outputPath = generateModels(codegen, "src/test/resources/3_0/schema-with-array-of-nullable.yaml", true);
+
+        assertFileContains(Paths.get(outputPath + "/src/main/kotlin/models/ArrayHolderObject.kt"),
+            codegen instanceof KotlinVertxServerCodegen
+                ? "var _nullableRequired: kotlin.String?,"
+                : "var nullableRequired: kotlin.String?,"
+        );
+    }
+
+    @Test(dataProvider = "generators")
+    public void nullableOptionalVal(AbstractKotlinCodegen codegen) throws IOException {
+        String outputPath = generateModels(codegen, "src/test/resources/3_0/schema-with-array-of-nullable.yaml", true);
+
+        assertFileContains(Paths.get(outputPath + "/src/main/kotlin/models/ArrayHolderObject.kt"),
+            "var nullableOptional: kotlin.String? = null,"
+        );
+    }
 }

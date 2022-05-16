@@ -368,7 +368,7 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
         Schema<?> target = ModelUtils.isGenerateAliasAsModel() ? p : schema;
         if (ModelUtils.isArraySchema(target)) {
             Schema<?> items = getSchemaItems((ArraySchema) schema);
-            return getSchemaType(target) + "<" + getTypeDeclaration(items) + ">";
+            return getSchemaType(target) + "<" + getTypeDeclarationWithNullability(items) + ">";
         } else if (ModelUtils.isMapSchema(target)) {
             // Note: ModelUtils.isMapSchema(p) returns true when p is a composed schema that also defines
             // additionalproperties: true
@@ -381,6 +381,14 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
             return getSchemaType(target) + "<kotlin.String, " + getTypeDeclaration(inner) + ">";
         }
         return super.getTypeDeclaration(target);
+    }
+
+    private String getTypeDeclarationWithNullability(Schema p) {
+        String declaration = super.getTypeDeclaration(p);
+        if (p.getNullable() == Boolean.TRUE) {
+            declaration += "?";
+        }
+        return declaration;
     }
 
     @Override
